@@ -1,5 +1,5 @@
 {
-  "name": "webpack-5.0-template",
+  "name": "vocab-YOU-lary",
   "version": "1.0.0",
   "description": "",
   "main": "public/main.js",
@@ -9,7 +9,7 @@
     "build": "webpack --mode production"
   },
   "keywords": [],
-  "author": "",
+  "author": "Damitry Dong",
   "license": "ISC",
   "devDependencies": {
     "css-loader": "^6.2.0",
