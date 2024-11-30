@@ -15,22 +15,18 @@ const BuildnavBar = () => {
               <a class="nav-link" href="#" id="myCards">My Cards</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" id="addCategory">Add Category</a>
+              <a class="nav-link" href="#" id="addCategory">My Category</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#" id="Community">Community</a>
             </li>
-            <li>
-            <input
-              class="form-control mr-sm-2"
-              id="search"
-              placeholder="Search Book Titles"
-              aria-label="Search"
-            />
-            </li>
           </ul>
+            <form class="d-flex" role="search" id="search-form">
+              <input id="search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" autocomplete="off">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+              <div id="dropdown-results" class="dropdown-menu w-100" style="display: none;"></div>
+            </form>
           <span class="navbar-text">
-            <div id="cart-button"></div>
             <div id="logout-button"></div>
           </span>
         </div>

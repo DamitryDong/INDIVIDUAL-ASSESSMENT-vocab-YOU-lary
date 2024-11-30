@@ -11,3 +11,12 @@ body {
 #navTitle {
   font-size: x-large !important;
 }
+
+#dropdown-results {
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  position: absolute;
+  top: 100%;
+  left: 0;
+}

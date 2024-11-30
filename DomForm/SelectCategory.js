@@ -1,6 +1,6 @@
 /* eslint-disable quotes, indent, no-trailing-spaces, semi, arrow-spacing, function-paren-newline, comma-spacing, eol-last */
 
-import GetCategory from "../apiConnectFunctions/apiCategory";
+import { GetCategory } from "../apiConnectFunctions/apiCategory";
 import renderToDOM from "../utils/renderToDom";
 
 const selectCategory = (CategoryfromWord, user) => {
