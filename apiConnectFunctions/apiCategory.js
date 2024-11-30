@@ -48,7 +48,7 @@ const createCategory = (payload) => new Promise((resolve, reject) => {
   .catch((error) => reject(error)); // Reject if there's an error
 });
 
-//DELETE CATEGORY TODO: 
+//DELETE CATEGORY 
 const deleteCategory = (firebaseKey) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/Category/${firebaseKey}.json`, {
     method: 'DELETE',

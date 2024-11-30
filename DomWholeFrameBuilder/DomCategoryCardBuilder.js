@@ -26,13 +26,13 @@ const showCategory = (array) => {
         domstring += `<div class="card w-50">
             <div class="card-body">
                 <h5 class="card-title">${item.CategoryName}</h5>
-                <a href="#" class="btn btn-primary" id="delete-category-btn--${item.firebaseKey}">Delete</a>
+                <button type="button" class="btn btn-primary" id="delete-category-btn__${item.firebasekey}">Delete</button>
             </div>
             </div>
         `
         }
     )
-    renderToDOM('#form-container',domstring);
+    renderToDOM('#form-container', domstring); // or your equivalent render function
 }
 
 export default showCategory

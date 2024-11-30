@@ -4,7 +4,8 @@ import addWordForm from "./AddWordForm";
 import { deleteWord, getSingleCard, GetWord } from "../apiConnectFunctions/apiWords";
 import showCards from "../DomWholeFrameBuilder/DomWordCardBuilder";
 import {
-      getCardInCategory, createCategory, updateCategory, GetCategory
+      getCardInCategory, createCategory, updateCategory, GetCategory,
+      deleteCategory
       } from "../apiConnectFunctions/apiCategory";
 import showCategory from "../DomWholeFrameBuilder/DomCategoryCardBuilder";
 
@@ -93,19 +94,19 @@ const allEvents = (user) => {
                   GetCategory(user.uid).then((Category) => showCategory(Category, user));
               })
             });
-            //  SECTION FOR DELETING CATEGORY TODO:
-            if (e.target.id.includes('aaaaa')) {
+            }
+            //  SECTION FOR DELETING CATEGORY
+            if (e.target.id.includes('delete-category-btn')) {
                 // eslint-disable-next-line no-alert
                 if (window.confirm('Want to delete?')) {
-                  console.warn('Card deleted', e.target.id);
-                  const [, firebaseKey] = e.target.id.split('--');
-                  deleteWord(firebaseKey).then(() => {
-                    GetWord(user.uid).then((words) => showCards(words, user));
+                  console.warn('Category deleted', e.target.id);
+                  const [, firebasekey] = e.target.id.split('__');
+                  deleteCategory(firebasekey).then(() => {
+                    GetCategory(user.uid).then((Category) => showCategory(Category, user));
                   });
                 }
             } 
-            }
-            }
+    }
     )
 };
 
