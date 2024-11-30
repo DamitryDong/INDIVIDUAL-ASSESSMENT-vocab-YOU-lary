@@ -19,7 +19,7 @@ const startApp = (user) => {
   logoutButton();
   navigationEvents(user);
 
-  GetWord(user.uid).then((Words) => showCards(Words,user));
+  GetWord(user.uid).then((Words) => showCards(Words,user, true));
 };
 
 export default startApp;

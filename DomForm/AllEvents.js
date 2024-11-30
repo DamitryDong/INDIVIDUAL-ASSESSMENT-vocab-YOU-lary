@@ -1,7 +1,10 @@
-/* eslint-disable quotes, indent, no-trailing-spaces, semi, arrow-spacing, function-paren-newline, comma-spacing, eol-last */
+/* eslint-disable quotes, padded-blocks, indent, no-trailing-spaces, semi, arrow-spacing, function-paren-newline, comma-spacing, eol-last */
 
 import addWordForm from "./AddWordForm";
-import { deleteWord, getSingleCard, GetWord } from "../apiConnectFunctions/apiWords";
+import {
+  createWord,
+        deleteWord, GetCommunityWords, getSingleCard, GetWord, updateWord 
+      } from "../apiConnectFunctions/apiWords";
 import showCards from "../DomWholeFrameBuilder/DomWordCardBuilder";
 import {
       getCardInCategory, createCategory, updateCategory, GetCategory,
@@ -25,7 +28,7 @@ const allEvents = (user) => {
                   console.warn('Card deleted', e.target.id);
                   const [, firebaseKey] = e.target.id.split('--');
                   deleteWord(firebaseKey).then(() => {
-                    GetWord(user.uid).then((words) => showCards(words, user));
+                    GetWord(user.uid).then((words) => showCards(words, user, true));
                   });
                 }
               }
@@ -33,12 +36,12 @@ const allEvents = (user) => {
             //  SECTION FOR EDITING Cards
             if (e.target.id.includes('edit-card-btn')) {
                 const [, firebaseKey] = e.target.id.split('--');
-                getSingleCard(firebaseKey).then((cardObj) => addWordForm(cardObj, user));
+                getSingleCard(firebaseKey).then((cardObj) => addWordForm(cardObj, user, true));
             }
-
+            //  SECTION FOR FILTERING ON CATEGORIES
             if (e.target.id.includes('catFilterButton')) {
               const [, CategoryName] = e.target.id.split('--');
-              getCardInCategory(CategoryName).then((filterWords) => showCards(filterWords, user));
+              getCardInCategory(CategoryName, user.uid).then((filterWords) => showCards(filterWords, user, true));
             }
             //  SORTING BUTTON ACTION (oldest first)
             if (e.target.id.includes('sort-dateOld-btn')) {
@@ -47,7 +50,7 @@ const allEvents = (user) => {
                   // Sort the fetched words
                   const sortedArray = words.sort((a, b) => new Date(a.created) - new Date(b.created));
                   // Re-render the sorted cards
-                  showCards(sortedArray, user);
+                  showCards(sortedArray, user, true);
                 })
                 .catch((error) => {
                   console.error('Error sorting words:', error);
@@ -61,20 +64,20 @@ const allEvents = (user) => {
                   // Sort the fetched words
                   const sortedArray = words.sort((a, b) => new Date(b.created) - new Date(a.created));
                   // Re-render the sorted cards
-                  showCards(sortedArray, user);
+                  showCards(sortedArray, user, true);
                 })
                 .catch((error) => {
                   console.error('Error sorting words:', error);
                 });
             }   
-
+            //  SORTING FOR ALPABETICAL
             if (e.target.id.includes('sort-alph-btn')) {
               GetWord(user.uid)
                 .then((words) => {
                   // Sort the fetched words
                   const sortedArray = words.sort((a, b) => a.wordName.localeCompare(b.wordName)); // Alphabetical order
                   // Re-render the sorted cards
-                  showCards(sortedArray, user);
+                  showCards(sortedArray, user, true);
                 })
                 .catch((error) => {
                   console.error('Error sorting words:', error);
@@ -106,8 +109,125 @@ const allEvents = (user) => {
                   });
                 }
             } 
-    }
-    )
+
+            //  IF PRIVATE -> GO PUBLIC BUTTON
+            if (e.target.id.includes('goPublic-card-btn')) {
+              const [, firebaseKey] = e.target.id.split('--');
+              const payload = {
+                communityStatus: "public",
+                firebaseKey
+              };
+      
+              updateWord(payload).then(() => {
+                GetWord(user.uid).then((Words) => showCards(Words, user, true));
+              })
+            }
+            //  IF PUBLIC -> GO PRIVATE BUTTON
+            if (e.target.id.includes('goPrivate-card-btn')) {
+              const [, firebaseKey] = e.target.id.split('--');
+              const payload = {
+                communityStatus: "private",
+                firebaseKey
+              };
+      
+              updateWord(payload).then(() => {
+                GetWord(user.uid).then((Words) => showCards(Words, user, true));
+              })
+            }
+
+            //  IF PUBLIC -> GO PRIVATE BUTTON FOR COMMUNITY PAGE JUST SO PAGE DONT RESET
+            if (e.target.id.includes('goPrivateCOM-card-btn')) {
+              const [, firebaseKey] = e.target.id.split('--');
+              const payload = {
+                communityStatus: "private",
+                firebaseKey
+              };
+      
+              updateWord(payload).then(() => {
+                GetCommunityWords(user.uid).then((Words) => showCards(Words, user));
+              })
+            }
+
+            //  COMMUNITY SORTING BUTTON ACTION (oldest first) 
+            if (e.target.id.includes('sort-COM-dateOld-btn')) {
+              GetCommunityWords()
+                .then((words) => {
+                  // Sort the fetched words
+                  const sortedArray = words.sort((a, b) => new Date(a.created) - new Date(b.created));
+                  // Re-render the sorted cards
+                  showCards(sortedArray, user);
+                })
+                .catch((error) => {
+                  console.error('Error sorting words:', error);
+                });
+            }    
+
+            //  COMMUNITY SORTING BUTTON ACTION (newest first)
+            if (e.target.id.includes('sort-COM-dateNew-btn')) {
+              GetCommunityWords()
+                .then((words) => {
+                  // Sort the fetched words
+                  const sortedArray = words.sort((a, b) => new Date(b.created) - new Date(a.created));
+                  // Re-render the sorted cards
+                  showCards(sortedArray, user);
+                })
+                .catch((error) => {
+                  console.error('Error sorting words:', error);
+                });
+            }   
+            //  COMMUNITY SORTING FOR ALPABETICAL
+            if (e.target.id.includes('sort-COM-alph-btn')) {
+              GetCommunityWords()
+                .then((words) => {
+                  // Sort the fetched words
+                  const sortedArray = words.sort((a, b) => a.wordName.localeCompare(b.wordName)); // Alphabetical order
+                  // Re-render the sorted cards
+                  showCards(sortedArray, user);
+                })
+                .catch((error) => {
+                  console.error('Error sorting words:', error);
+                });
+            }  
+
+            //  SECTION FOR FILTERING ON CATEGORIES
+            if (e.target.id.includes('catCOMFilterButton')) {
+              const [, CategoryName] = e.target.id.split('--');
+              getCardInCategory(CategoryName).then((filterWords) => showCards(filterWords, user));
+            }
+
+            //  SECTION FOR COPYING OTHERS CARDS
+            if (e.target.id.includes('Copy-Community-card-btn')) {
+              const [, firebaseKey] = e.target.id.split('--');
+              getSingleCard(firebaseKey).then((item) => {
+                const payload = {
+                  wordName: item.wordName ,
+                  Category: item.Category ,
+                  communityStatus: 'private',
+                  definition: item.definition,
+                  uid: user.uid,
+                  created: new Date().toLocaleString('en-US', {
+                    weekday: 'short',  
+                    year: '2-digit',   
+                    month: 'short',   
+                    day: 'numeric',    
+                    hour: '2-digit',  
+                    minute: '2-digit', 
+                    hour12: true 
+                  })
+                }
+                // eslint-disable-next-line no-alert
+                if (window.confirm('Confirm Copy?')) {
+                  createWord(payload).then(({ name }) => {
+                    const patchPayload = { firebaseKey: name };
+                  
+                  updateWord(patchPayload).then(() => {
+                    GetCommunityWords().then((Words) => showCards(Words, user));
+                  })
+                  })
+                }
+            });
+            }
+})
 };
 
 export default allEvents;

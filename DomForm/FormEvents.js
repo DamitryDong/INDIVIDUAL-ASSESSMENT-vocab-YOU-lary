@@ -13,6 +13,7 @@ const formEvents = (user) => {
           definition: document.querySelector('#definition').value,
           uid: user.uid,
           wordName: document.querySelector('#wordName').value,
+          communityStatus: "private",
           created: new Date().toLocaleString('en-US', {
             weekday: 'short',  // Abbreviated weekday (e.g., "Mon")
             year: '2-digit',   // Short year (e.g., "24" for 2024)
@@ -29,7 +30,7 @@ const formEvents = (user) => {
           
           // Rerun the showCards so we have cards back up
           updateWord(patchPayload).then(() => {
-            GetWord(user.uid).then((Words) => showCards(Words, user));
+            GetWord(user.uid).then((Words) => showCards(Words, user, true));
           });
         });
       }
@@ -45,7 +46,7 @@ const formEvents = (user) => {
         };
 
         updateWord(payload).then(() => {
-          GetWord(user.uid).then((Words) => showCards(Words));
+          GetWord(user.uid).then((Words) => showCards(Words, user, true));
         })
       }
     });

@@ -1,11 +1,12 @@
 /* eslint-disable quotes, indent, no-trailing-spaces, semi, arrow-spacing, function-paren-newline, comma-spacing, eol-last */
 
-import { GetWord } from "../apiConnectFunctions/apiWords"
+import { GetCommunityWords, GetWord } from "../apiConnectFunctions/apiWords"
 import showCards from "../DomWholeFrameBuilder/DomWordCardBuilder"
 import showCategory from "../DomWholeFrameBuilder/DomCategoryCardBuilder";
 import { GetCategory } from "../apiConnectFunctions/apiCategory";
 
 const navigationEvents = (user) => {
+  //  NAV FOR MY CARDS
     document.querySelector('#myCards')
         .addEventListener(
             'click', 
@@ -14,14 +15,14 @@ const navigationEvents = (user) => {
                 GetWord(user.uid)
                     .then((Words) => {
                         // Show cards after fetching the data
-                        showCards(Words, user);
+                        showCards(Words, user, true);
                     })
                     .catch((error) => {
                         console.error('Error fetching words:', error);
                     });
             }
         );
-
+  //  NAV FOR MY CATEGORY
     document.querySelector('#addCategory')
         .addEventListener(
             'click', 
@@ -37,7 +38,21 @@ const navigationEvents = (user) => {
                     });
             }
         );
-    
+  //  NAV FOR COMMUNITY
+      document.querySelector('#Community')
+        .addEventListener(
+            'click', 
+            () => {
+                GetCommunityWords()
+                    .then((Words) => {
+                        showCards(Words, user, false);
+                    })
+                    .catch((error) => {
+                        console.error('Error fetching words:', error);
+                    });
+            }
+        );
+  // SEARCH BAR SECTION
     document.querySelector('#search-form')
         .addEventListener(
             'submit', (e) => {
@@ -52,7 +67,7 @@ const navigationEvents = (user) => {
                     || word.definition.toLowerCase().includes(searchQuery) // Check if definition matches
                   );
                   // Re-render the filtered results
-                  showCards(filteredWords, user);
+                  showCards(filteredWords, user, true);
                 })
                 .catch((error) => {
                   console.error('Error during search:', error);

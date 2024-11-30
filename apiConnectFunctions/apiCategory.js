@@ -21,8 +21,28 @@ const GetCategory = (uid) => new Promise((resolve, reject) => {
       .catch(reject);
   });
 
+//GET COMMUNITY CATEGORY 
+//First we get the words that are public
+const GetPublicWord = () => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/Words.json?orderBy="communityStatus"&equalTo="public"`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data) {
+        resolve(Object.values(data));
+      } else {
+        resolve([]);
+      }
+    })
+    .catch(reject);
+});
+
 // GET CARD WITH GIVEN CATEGORY
-const getCardInCategory = (categoryName) => new Promise((resolve, reject) => {
+const getCardInCategory = (categoryName, uid) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/Words.json?orderBy="Category"&equalTo="${categoryName}"`, {
     method: 'GET',
     headers: {
@@ -30,7 +50,21 @@ const getCardInCategory = (categoryName) => new Promise((resolve, reject) => {
     },
   })
     .then((response) => response.json())
-    .then((data) => resolve(Object.values(data)))
+    .then((data) => {
+      if (data) {
+        // IF WE ARE GIVEN A UID
+        if(uid) {        
+          const filteredData = Object.values(data).filter((item) => item.uid === uid);
+          resolve(filteredData);}
+        // IF WE ARE NOT GIVEN A UID (FOR COMMUNITY PAGE)
+        else {
+          resolve(Object.values(data))
+        }
+        // Filter the fetched results to match the given uid
+      } else {
+        resolve([]); // No matching data
+      }
+    })
     .catch(reject);
 });
 
@@ -61,7 +95,7 @@ const deleteCategory = (firebaseKey) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-//UPDATE CATEGORY
+//  UPDATE CATEGORY
 const updateCategory = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/Category/${payload.firebasekey}.json`, {
     method: 'PATCH',
@@ -81,4 +115,5 @@ const updateCategory = (payload) => new Promise((resolve, reject) => {
     createCategory,
     deleteCategory,
     updateCategory,
+    GetPublicWord,
   }

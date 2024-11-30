@@ -2,7 +2,7 @@
 import client from "../utils/client";
 
 const endpoint = client.databaseURL
-// GET CARD
+// GET YOUR CARDS
 const GetWord = (uid) => new Promise((resolve, reject) => {
     fetch(`${endpoint}/Words.json?orderBy="uid"&equalTo="${uid}"`, {
       method: 'GET',
@@ -75,10 +75,31 @@ const updateWord = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+// GET COMMUNITY CARDS (PUBLIC CARDS)
+const GetCommunityWords = () => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/Words.json?orderBy="communityStatus"&equalTo="public"`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data) {
+        resolve(Object.values(data));
+      } else {
+        resolve([]);
+      }
+    })
+    .catch(reject);
+});
+
+
 export {
   GetWord,
   createWord, 
   deleteWord,
   updateWord,
   getSingleCard,
+  GetCommunityWords,
 }
