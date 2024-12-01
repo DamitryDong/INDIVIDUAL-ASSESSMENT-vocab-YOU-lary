@@ -22,12 +22,12 @@ const BuildnavBar = () => {
             </li>
           </ul>
             <form class="d-flex" role="search" id="search-form">
-              <input id="search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" autocomplete="off">
+              <input id="search-input" class="form-control me-2" type="search" placeholder="Search My Cards" aria-label="Search" autocomplete="off">
               <button class="btn btn-outline-success" type="submit">Search</button>
               <div id="dropdown-results" class="dropdown-menu w-100" style="display: none;"></div>
             </form>
           <span class="navbar-text">
-            <div id="logout-button"></div>
+            <div id="logout-button" style="padding-left:150px;"></div>
           </span>
         </div>
       </div>

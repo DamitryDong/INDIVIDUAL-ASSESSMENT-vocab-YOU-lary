@@ -1,23 +1,126 @@
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
 @import "~bootstrap/scss/bootstrap";
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-body {
-  margin-top: 100px;
-  background-color: rgb(92, 90, 88);
+#app {
+  font-family: 'Poppins', sans-serif;
+}
+#app {
+  display: grid; /* Enables grid layout on the #app container */
+  grid-template-columns: repeat(12, 1fr); /* 12 equal-width columns */
+  grid-template-rows: 100px 1fr; /* Fixed first row for the title, and flexible remaining rows */
+  height: 100vh; /* Fills the entire viewport height */
+  width: 100vw; /* Fills the entire viewport width */
+  background-color: #ffffff; /* Optional: Adds a background color */
 }
 
-#privateCheck {
-  pointer-events: auto !important;
-  z-index: 10 !important; /* Ensure it's on top */
+#main-container {
+  grid-column: 2 / span 10; /* Centers the container, leaving 1 space on the left and right */
+  grid-row: 1 / -1; /* Take up all available rows, starting from row 2 */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers items horizontally */
+  text-align: center; /* Centers text inside child elements */
+  background-color:rgba(28, 28, 28, 0.954);
+  padding-top: 230px;
 }
 
+#form-container {
+  background-color: #ffffff;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column; /* Stacks the form elements vertically */
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 8%;
+  border-top-right-radius: 8%;
+}
 
-#navTitle {
-  font-size: x-large !important;
+#MyCardsFlex {
+  width: 95%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+  max-height: calc(100vh - 150px); /* Prevent the cards container from taking up too much space */
+}
+
+.card {
+  perspective: 1000px;
+  width: calc(25% - 20px); /* Makes each card take up 25% of the row, minus the gap */
+  height: 400px;
+  margin-bottom: 20px; /* Adds space below each card */
+  background-color: white;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  border: none !important;
+}
+
+//FLIP MACHANIC
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+}
+
+.card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10%;
+}
+
+.card-front {
+  background-color: rgba(28, 28, 28, 0.954);
+  color:white;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-back {
+  background-color: #f5f5f5f9;
+  transform: rotateY(180deg);
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-definition {
+  font-size: 1rem;
+  color: #333;
+  text-align: center;
+}
+
+.card-title {
+  font-size: 2rem; /* Adjusts the size of the word name */
+}
+
+.card-subtitle {
+  font-size: .8rem; /* Adjusts the size of category */
+}
+
+.card-subtitle-smaller {
+  font-size: 0.6rem; /* Adjusts the size of the created date */
+}
+//FLIP MACHANIC ABOVE
+
+
+#MyCardTitle {
+  grid-column: 1 / -1; /* Span across all columns */
+  grid-row: 1; /* Fixed on the first row */
+  text-align: center;
+  font-size: 4rem; /* Increase font size */
+  font-weight: bold; /* Make it bold */
+  color: rgb(255, 255, 255); /* Make the text color white for contrast */
 }
 
 #dropdown-results {
@@ -27,4 +130,29 @@ body {
   position: absolute;
   top: 100%;
   left: 0;
+}
+
+#category-form {
+  width: 90%;
+  padding-bottom: 30px;
+  padding-top: 150px; /* Adjust top padding as needed */
+  position: sticky; /* Keeps the form fixed at the top when scrolling */
+  top: 0; /* Fixes the form to the top of the viewport */
+  z-index: 50; /* Ensures it stays above other elements */
+  margin: 0 auto; /* Centers the form horizontally */
+  text-align: center; /* Centers the text */
+}
+
+#category-input.form-control {
+  border: 5px solid rgb(0, 0, 0);
+}
+
+#CategoryCardDiv {
+  position: relative; /* Ensure it's relative to its container */
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  margin-top: 150px;
 }
