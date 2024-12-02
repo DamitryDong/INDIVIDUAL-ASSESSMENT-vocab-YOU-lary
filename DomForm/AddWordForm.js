@@ -22,7 +22,7 @@ const addWordForm = (obj = {}, user) => {
                 <!-- Category selection will be rendered here -->
             </div>
             
-            <button type="submit" class="btn btn-primary" id="${buttonId}--${obj.firebaseKey}">${buttonName}</button>
+            <button type="submit" class="btn btn-success" id="${buttonId}--${obj.firebaseKey}">${buttonName}</button>
         </form>`;
     renderToDOM('#form-container', domString);
     if (user) {

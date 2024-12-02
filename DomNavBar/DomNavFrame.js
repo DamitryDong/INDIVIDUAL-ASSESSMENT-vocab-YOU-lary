@@ -18,7 +18,7 @@ const BuildnavBar = () => {
               <a class="nav-link" href="#" id="addCategory">My Category</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" id="Community">Community</a>
+              <a class="nav-link" href="#" id="Community">Community Cards</a>
             </li>
           </ul>
             <form class="d-flex" role="search" id="search-form">

@@ -23,10 +23,10 @@ const showCards = async (array, user, isPrivate) => {
 
     // Sort options, stacked vertically
     domstring += `
-      <button type="button" class="btn btn-secondary mb-2" id="sort-dateNew-btn">Sort Newest</button>
-      <button type="button" class="btn btn-secondary mb-2" id="sort-dateOld-btn">Sort Oldest</button>
-      <button type="button" class="btn btn-secondary mb-2" id="sort-alph-btn">Sort Alphabetical</button>
-      <button type="button" class="btn btn-success mb-2" id="add-card-btn">Add Card</button>
+      <button type="button" class="btn btn-secondary mb-2" id="sort-dateNew-btn" style="width: 200px;">Sort Newest</button>
+      <button type="button" class="btn btn-secondary mb-2" id="sort-dateOld-btn"style="width: 200px;">Sort Oldest</button>
+      <button type="button" class="btn btn-secondary mb-2" id="sort-alph-btn"style="width: 200px;">Sort Alphabetical</button>
+      <button type="button" class="btn btn-success mb-2" id="add-card-btn" style="width: 200px ;">Add Card</button>
     </div>`;
     
     // Category filter buttons on a new line
@@ -35,7 +35,7 @@ const showCards = async (array, user, isPrivate) => {
     try {
       const categories = await GetCategory(user.uid); // Wait for the categories to be fetched
       categories.forEach((category) => {
-        domstring += `<button type="button" class="btn btn-outline-dark mb-2" id="catFilterButton--${category.CategoryName}">${category.CategoryName}</button>`;
+        domstring += `<button type="button" style="border-radius: 0;" class="btn btn-outline-dark" id="catFilterButton--${category.CategoryName}">${category.CategoryName}</button>`;
       });
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -50,6 +50,9 @@ const showCards = async (array, user, isPrivate) => {
           <div class="card-inner">
             <!-- Front Side (Initially visible) -->
             <div class="card-front">
+              <div>
+                ${item.communityStatus === "public" ? `<span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-dark">Shared Card</span>` : ""}
+              </div>
               <div class="card-body">
                 <h4 class="card-title"><b>${item.wordName}</b></h4>
                 <h6 class="card-subtitle"><b>${item.Category}</b></h6>
@@ -61,11 +64,11 @@ const showCards = async (array, user, isPrivate) => {
             <div class="card-back">
               <div class="card-body">
                 <p class="card-definition">${item.definition}</p>
-                <button type="button" class="btn btn-danger" id="delete-card-btn--${item.firebaseKey}">Delete</button>
-                <button type="button" class="btn btn-primary" id="edit-card-btn--${item.firebaseKey}">Edit</button>
                 <button type="button" class="btn btn-warning" id="${item.communityStatus === "private" ? "goPublic-card-btn" : "goPrivate-card-btn"}--${item.firebaseKey}">
-                  ${item.communityStatus === "private" ? "Share" : "Unshare"}
+                  ${item.communityStatus === "private" ? "📤" : "📥"}
                 </button>
+                <button type="button" class="btn btn-primary" id="edit-card-btn--${item.firebaseKey}">✏️</button>
+                <button type="button" class="btn btn-danger" id="delete-card-btn--${item.firebaseKey}">🗑️</button>
               </div>
             </div>
           </div>
@@ -81,16 +84,16 @@ const showCards = async (array, user, isPrivate) => {
     // Title for community screen
     domstring += `
       <div class="text-4xl font-bold text-center my-4" id="MyCardTitle">
-        <h1><b>Community</b></h1>
+        <h1><b><span class="rainbow-text">Community</span></b></h1>
       </div>
     `;
     
     // Sort options for community screen
     domstring += `
       <div class="text-center mb-4" id="noCategoryfilter">
-        <button type="button" class="btn btn-secondary mb-2" id="sort-COM-dateNew-btn">Sort Newest</button>
-        <button type="button" class="btn btn-secondary mb-2" id="sort-COM-dateOld-btn">Sort Oldest</button>
-        <button type="button" class="btn btn-secondary mb-2" id="sort-COM-alph-btn">Sort Alphabetical</button>
+        <button type="button" class="btn btn-secondary mb-2" id="sort-COM-dateNew-btn" style="width: 200px;">Sort Newest</button>
+        <button type="button" class="btn btn-secondary mb-2" id="sort-COM-dateOld-btn" style="width: 200px;">Sort Oldest</button>
+        <button type="button" class="btn btn-secondary mb-2" id="sort-COM-alph-btn" style="width: 200px;">Sort Alphabetical</button>
       </div>
     `;
 
@@ -105,7 +108,7 @@ const showCards = async (array, user, isPrivate) => {
   
     // Add the unique categories to the DOM
     uniqueCategories.forEach((category) => {
-        domstring += `<button type="button" class="btn btn-outline-dark mb-2" id="catCOMFilterButton--${category.Category}">${category.Category}</button>`;
+        domstring += `<button type="button" style="border-radius: 0;" class="btn btn-outline-dark" id="catCOMFilterButton--${category.Category}">${category.Category}</button>`;
       });
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -121,7 +124,7 @@ const showCards = async (array, user, isPrivate) => {
         <div class="card">
           <div class="card-inner">
             <!-- Front Side (Initially visible) -->
-            <div class="card-front">
+            <div class="card-front" style="background-color:${item.uid !== user.uid ? "#d4e8e6f9" : ""};color:${item.uid !== user.uid ? "black" : ""};">
               <div class="card-body-front">
                 <div>
                   ${item.uid === user.uid ? `<span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-dark">Your Card</span>` : ""}
@@ -137,8 +140,8 @@ const showCards = async (array, user, isPrivate) => {
               <div class="card-body">
                 <p class="card-definition">${item.definition}</p>
                 ${item.uid === user.uid 
-                  ? `<button type="button" class="btn btn-warning" id="goPrivateCOM-card-btn--${item.firebaseKey}">Unshare</button>` 
-                  : `<button type="button" class="btn btn-info" id="Copy-Community-card-btn--${item.firebaseKey}">Copy</button>`}
+                  ? `<button type="button" class="btn btn-warning" id="goPrivateCOM-card-btn--${item.firebaseKey}">📥</button>` 
+                  : `<button type="button" class="btn btn-dark" id="Copy-Community-card-btn--${item.firebaseKey}">✙</button>`}
               </div>
             </div>
           </div>
