@@ -3,6 +3,9 @@
 ## Link to the deployed project
 https://damitryvocab.netlify.app/
 
+## Link to Loom video walkthrough of the app
+https://www.loom.com/share/e40dae35907840c29aa6273701adaf3e?sid=d420632b-a40d-495f-a6c3-38b2c80c4cab
+
 ## Overview of the project
 
 A web application designed for creating, organizing, and sharing flashcards. Perfect for studying and engaging with a vibrant community of learners.  
@@ -33,8 +36,5 @@ A web application designed for creating, organizing, and sharing flashcards. Per
 ### **Search Functionality**  
 - Use the search bar to quickly find specific flashcards in your personal collection. 
 
-## Description of the user
+### Description of the user
 Any user, know that you must login to Google to access this website due to needing a user to own the cards you made.
-
-## Link to Loom video walkthrough of the app
-https://www.loom.com/share/e40dae35907840c29aa6273701adaf3e?sid=d420632b-a40d-495f-a6c3-38b2c80c4cab
