@@ -3,14 +3,6 @@
 #app {
   font-family: 'Poppins', sans-serif;
 }
-#app {
-  display: grid; /* Enables grid layout on the #app container */
-  grid-template-columns: repeat(12, 1fr); /* 12 equal-width columns */
-  grid-template-rows: 100px 1fr; /* Fixed first row for the title, and flexible remaining rows */
-  height: 100vh; /* Fills the entire viewport height */
-  width: 100vw; /* Fills the entire viewport width */
-  background-color: #ffffff; /* Optional: Adds a background color */
-}
 #main-container {
   grid-column: 2 / span 10; /* Centers the container, leaving 1 space on the left and right */
   grid-row: 1 / -1; /* Take up all available rows, starting from row 2 */
@@ -18,8 +10,7 @@
   flex-direction: column;
   align-items: center; /* Centers items horizontally */
   text-align: center; /* Centers text inside child elements */
-  background-color:rgba(28, 28, 28, 0.954);
-  padding-top: 230px;
+  padding-top: 50px;
 }
 
 #form-container {
@@ -33,7 +24,8 @@
 }
 
 #MyCardsFlex {
-  width: 95%;
+  padding-top: 40px;
+  width: 80%;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -112,13 +104,17 @@
 
 
 #MyCardTitle {
-  grid-column: 1 / -1; /* Span across all columns */
-  grid-row: 1; /* Fixed on the first row */
+  display: flex; /* Enables flexbox layout */
+  justify-content: center; /* Centers content horizontally */
+  align-items: center; /* Centers content vertically */
   text-align: center;
-  font-size: 4rem; /* Increase font size */
   font-weight: bold; /* Make it bold */
   color: rgb(255, 255, 255); /* Make the text color white for contrast */
+  background-color: rgba(28, 28, 28, 0.954);
+  width: 100%;
+  min-height: 100px;
 }
+
 
 #dropdown-results {
   max-height: 200px;
@@ -152,4 +148,63 @@
   gap: 30px;
   justify-content: center;
   margin-top: 150px;
+}
+
+//STUDY CARDS
+
+.card-study {
+  width: 97%; 
+  height: 10%;
+  background-color: rgba(28, 28, 28, 0.954); /* Set background color to black */
+  color: white; 
+  overflow: hidden; 
+  border-radius: 20px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.card-definition-study {
+  color: transparent;
+  font-size: 40px; /* Adjust this value to make the text bigger */
+  text-align: center; /* Center the text horizontally */
+  line-height: 1.5; /* Optional: Adjust line height for better readability */
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 10%; 
+  margin-bottom: 15%;
+  opacity:1 ;
+  border-radius: 10px;
+}
+
+@keyframes rainbow {
+  0% {
+    color: red;
+  }
+  14% {
+    color: orange;
+  }
+  28% {
+    color: yellow;
+  }
+  42% {
+    color: green;
+  }
+  57% {
+    color: blue;
+  }
+  71% {
+    color: indigo;
+  }
+  85% {
+    color: violet;
+  }
+  100% {
+    color: red;
+  }
+}
+
+.card-definition-study:hover {
+  opacity: 1;
+  animation: rainbow 10s linear infinite; 
+  color: rgba(0, 0, 0, 0.84); 
 }

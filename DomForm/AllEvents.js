@@ -41,7 +41,7 @@ const allEvents = (user) => {
             //  SECTION FOR FILTERING ON CATEGORIES
             if (e.target.id.includes('catFilterButton')) {
               const [, CategoryName] = e.target.id.split('--');
-              getCardInCategory(CategoryName, user.uid).then((filterWords) => showCards(filterWords, user, true));
+              getCardInCategory(CategoryName, user.uid).then((filterWords) => showCards(filterWords, user, true, false, true));
             }
             //  SORTING BUTTON ACTION (oldest first)
             if (e.target.id.includes('sort-dateOld-btn')) {
@@ -226,6 +226,13 @@ const allEvents = (user) => {
                   })
                 }
             });
+            }
+
+            //  SECTION FOR STUDYING CURRENT DOM CARDS TODO:
+            if (e.target.id.includes('study-card-btn')) {
+              const element = document.querySelector('.card-subtitle');
+              const text = element ? element.innerText : 'No element found';
+              getCardInCategory(text, user.uid).then((filterWords) => showCards(filterWords, user, false, true));
             }
 })
 };

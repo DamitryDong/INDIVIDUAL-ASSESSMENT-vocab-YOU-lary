@@ -9,7 +9,7 @@ const addWordForm = (obj = {}, user) => {
     const buttonId = obj.firebaseKey ? 'update-card' : 'Cardit'; // Determine the button ID dynamically
     const buttonName = obj.firebaseKey ? 'Update!' : 'Card it!';     
     const domString = `
-        <form id="${obj.firebaseKey ? `update-card--${obj.firebaseKey}` : 'submit-card'}">
+        <form id="${obj.firebaseKey ? `update-card--${obj.firebaseKey}` : 'submit-card'}" style="margin-top: 200px; color: white; width: 60%;">
             <div class="mb-3">
                 <label for="wordName" class="form-label">Word</label>
                 <input type="text" class="form-control" id="wordName" aria-describedby="wordHelp" placeholder="Enter the word" value="${obj.wordName || ''}" required>
@@ -23,7 +23,8 @@ const addWordForm = (obj = {}, user) => {
             </div>
             
             <button type="submit" class="btn btn-success" id="${buttonId}--${obj.firebaseKey}">${buttonName}</button>
-        </form>`;
+        </form>
+        `;
     renderToDOM('#form-container', domString);
     if (user) {
       selectCategory(`${obj.Category || ''}`, user);
