@@ -228,11 +228,20 @@ const allEvents = (user) => {
             });
             }
 
-            //  SECTION FOR STUDYING CURRENT DOM CARDS TODO:
+            //  SECTION FOR STUDYING CURRENT DOM CARDS 
             if (e.target.id.includes('study-card-btn')) {
               const element = document.querySelector('.card-subtitle');
               const text = element ? element.innerText : 'No element found';
               getCardInCategory(text, user.uid).then((filterWords) => showCards(filterWords, user, false, true));
+            }
+            
+            // SECTION FOR STUDYING CARDS NEXT BUTTON
+            if (e.target.id.includes('flip-')) {
+              const [, index] = e.target.id.split('-')
+              const cardToDelete = document.getElementById(`card-${index}`);
+              if (cardToDelete) {
+                cardToDelete.remove(); // THIS REMOVES THE CARD FROM DOM
+              }
             }
 })
 };

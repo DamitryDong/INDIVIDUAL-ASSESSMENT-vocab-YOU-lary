@@ -127,8 +127,7 @@
 
 #category-form {
   width: 90%;
-  padding-bottom: 30px;
-  padding-top: 150px; /* Adjust top padding as needed */
+  padding-top: 50px; /* Adjust top padding as needed */
   position: sticky; /* Keeps the form fixed at the top when scrolling */
   top: 0; /* Fixes the form to the top of the viewport */
   z-index: 50; /* Ensures it stays above other elements */
@@ -137,30 +136,31 @@
 }
 
 #category-input.form-control {
-  border: 5px solid rgb(0, 0, 0);
+  border: 2px solid rgb(0, 0, 0);
 }
 
 #CategoryCardDiv {
   position: relative; /* Ensure it's relative to its container */
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
   justify-content: center;
-  margin-top: 150px;
+  margin-top: 40px;
 }
 
 //STUDY CARDS
 
-.card-study {
-  width: 97%; 
+.card-study { 
   height: 10%;
-  background-color: rgba(28, 28, 28, 0.954); /* Set background color to black */
+  top: 0;
+  left: 0;
+  width: 100%; /* Ensure cards take up the full container width */
+  height: 92%;
+  background-color: rgba(28, 28, 28);
   color: white; 
-  overflow: hidden; 
-  border-radius: 20px;
-  margin-bottom: 20px;
-  margin-top: 10px;
+  margin-top: 70px;
+  position: absolute; /* Stack the cards on top of each other */
 }
 
 .card-definition-study {
@@ -170,41 +170,36 @@
   line-height: 1.5; /* Optional: Adjust line height for better readability */
   margin-left: 10%;
   margin-right: 10%;
-  margin-top: 10%; 
+  margin-top: 8%; 
   margin-bottom: 15%;
-  opacity:1 ;
+  background-color: #ffffff;
+  opacity: 1;
   border-radius: 10px;
-}
-
-@keyframes rainbow {
-  0% {
-    color: red;
-  }
-  14% {
-    color: orange;
-  }
-  28% {
-    color: yellow;
-  }
-  42% {
-    color: green;
-  }
-  57% {
-    color: blue;
-  }
-  71% {
-    color: indigo;
-  }
-  85% {
-    color: violet;
-  }
-  100% {
-    color: red;
-  }
+  max-height: 500px;
+  transition: opacity 1s ease, color 2s ease; /* duration for the fade in */
 }
 
 .card-definition-study:hover {
   opacity: 1;
-  animation: rainbow 10s linear infinite; 
   color: rgba(0, 0, 0, 0.84); 
+}
+
+
+[id^="flip-"] { //this is used for targeting where idea INCLUDES flip-
+  font-size: 24px; /* Increase the size of the arrow */
+  height: 150px;
+  width: 150px;
+  border-radius: 50%; 
+
+  background-color: white; 
+
+  position: absolute; 
+  bottom: 30px; 
+  right: 50px; 
+
+  transition: transform 0.2s ease;
+}
+
+[id^="flip-"]:hover {
+  transform: scale(1.1); /* Expand the button by 10% when hovered */
 }

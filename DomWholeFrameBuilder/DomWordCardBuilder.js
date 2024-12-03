@@ -82,7 +82,7 @@ const showCards = async (array, user, isPrivate, isStudy, isFilter) => {
       <style>
         #study-card-btn:hover {
           transform: scale(1.1); 
-          transition: transform .3s ease-in-out; 
+          transition: transform .4s ease-in-out; 
         }
       </style>
       <button type="button" class="btn btn-primary mb-2" id="study-card-btn" 
@@ -90,6 +90,8 @@ const showCards = async (array, user, isPrivate, isStudy, isFilter) => {
           height: 120px; 
           border-top-left-radius: 50%; 
           border-bottom-left-radius: 50%; 
+          border-top-right-radius:0px;
+          border-bottom-right-radius:0px;
           position: absolute; 
           right: 0px; 
           margin-left: 0; 
@@ -105,16 +107,17 @@ const showCards = async (array, user, isPrivate, isStudy, isFilter) => {
   
   //  SECTION FOR STUDY////////////////
  else if (isStudy === true) {
-  domstring += `<div style="padding-top: 60px"></div>`
-  array.forEach((item) => {
+  domstring += `<div style="padding-top: 60px; font-size: 100px; margin-top: 15%;"> You're Done!!</div>`
+  array.forEach((item, index) => {
     domstring += `
-      <div class="card-study">
+      <div class="card-study" id="card-${index}">
           <div class="card-Name">
             <div class="card-body">
               <h2 class="card-title" style="padding-top: 60px;"><b style="font-size: 50px">${item.wordName}</b></h4>
                 <div class="card-def">
-                  <p class="card-definition-study">${item.definition}</p>
+                  <p class="card-definition-study"><b style="color:black">Definition: </b>${item.definition}</p>
                 </div>
+              <button type="button" class="btn btn-light" id="flip-${index}">Next</button>
             </div>
           </div>
       </div>

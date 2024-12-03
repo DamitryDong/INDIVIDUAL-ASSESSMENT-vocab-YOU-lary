@@ -6,7 +6,11 @@ import renderToDOM from "../utils/renderToDom";
 const showCategory = (array) => {
     clearDom();
     
-    let domstring = '';
+    let domstring = `
+      <div class="text-4xl font-bold text-center my-4" id="MyCardTitle">
+        <h1><b>My Category</b></h1>
+      </div>
+    `;
     domstring += `
       <form id="category-form" class="input-group mb-3">
         <div class="input-group mb-3">
