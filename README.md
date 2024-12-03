@@ -1,6 +1,7 @@
 # VOCAB-YOU-LARY PROJECT
 
-## Link to the deployed project
+## Link to the deployed project 
+NEW FEATURE ADDED WITH "STUDY" not on video
 https://damitryvocab.netlify.app/
 
 ## Link to Loom video walkthrough of the app
